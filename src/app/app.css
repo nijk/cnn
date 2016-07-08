@@ -1,0 +1,72 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.container-fluid .jumbotron {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .container-fluid .jumbotron {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+.well {
+    max-width: 630px;
+}
+
+.well.well-sm {
+    margin-bottom: 10px;
+}
+
+.well .form-inline{
+    position: relative;
+    margin-bottom: -5px;
+}
+
+.well.filter-logical {
+    background-color: transparent;
+    border-style: dashed;
+    border-width: 2px;
+    box-shadow: none;
+    text-align: center;
+}
+
+.remove-filter {
+    cursor: pointer;
+    float: right;
+    top: 10px;
+    width: 24px;
+    height: 24px;
+}
+
+.remove-filter::before {
+    padding: 5px;
+    border-radius: 15px;
+    background-color: #dfdfdf;
+}
+
+.text-hide {
+    text-indent: -999em;
+}
+
+.thumbnail {
+    height: 150px;
+    overflow: auto;
+}
+
+.thumbnail h3 {
+    margin-top: 0;
+}
+
+.thumbnail .glyphicon {
+    margin-right: 5px;
+}
+
+.thumbnail .caption :last-child {
+    margin-bottom: 0;
+}
