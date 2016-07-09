@@ -3,15 +3,15 @@
  */
 
 import { Component, Injectable } from 'angular2/core';
-import { Alert } from 'ng2-bootstrap';
+//import { Alert } from 'ng2-bootstrap';
 
 // Services
 import { MessagesService } from "./messages.service.ts";
 
 @Component({
     selector: 'user-messages',
-    providers: [ Alert ],
-    directives: [ Alert ],
+    /*providers: [ Alert ],
+    directives: [ Alert ],*/
     template: require('./messages.component.html')
 })
 export class Messages {

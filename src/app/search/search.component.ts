@@ -59,10 +59,10 @@ export class Search implements OnInit {
     filters: SearchFilter[] = [ Object.assign({}, this._defaultFilter) ];
 
     ngOnInit() {
-        if (!this._authService.isUserAuthenticated()) {
+        /*if (!this._authService.isUserAuthenticated()) {
             console.warn('User not authenticated, redirecting to login');
             return this._router.navigate(['Login']);
-        }
+        }*/
     }
 
     /**

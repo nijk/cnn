@@ -8,10 +8,10 @@ import { FORM_PROVIDERS } from 'angular2/common';
 
 // Services
 import { AuthService } from './auth/auth.service';
-import { MessagesService } from './messages/messages.service.ts';
+//import { MessagesService } from './messages/messages.service.ts';
 
 // Components
-import { Auth } from './auth/auth.component';
+import { Content } from './content/content.component';
 
 /*
  * App Component
@@ -19,7 +19,7 @@ import { Auth } from './auth/auth.component';
  */
 @Component({
   selector: 'app',
-  providers: [ ...FORM_PROVIDERS, AuthService, MessagesService ],
+  providers: [ ...FORM_PROVIDERS, AuthService/*, MessagesService*/ ],
   directives: [ ...ROUTER_DIRECTIVES, RouterActive ],
   encapsulation: ViewEncapsulation.None,
   styles: [ require('./app.css') ],
@@ -27,20 +27,20 @@ import { Auth } from './auth/auth.component';
 })
 @RouteConfig([
   {
-    path: '/login',
-    component: Auth,
-    name: 'Login'
-  },
+    path: '/content',
+    component: Content,
+    name: 'Content'
+  }/*,
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   {
     path: '/search',
     loader: () => require('es6-promise!./search/search.component')('Search'),
     name: 'Search',
     useAsDefault: true
-  }
+  }*/
 ])
 export class App {
-  name = 'ForgeRock';
+  name = 'Code Name Nick';
   constructor(){
   }
 }

@@ -11,8 +11,8 @@ var ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 var HMR = helpers.hasProcessFlag('hot');
 
 var metadata = {
-  title: 'Angular2 Webpack Starter by @gdi2990 from @AngularClass',
-  baseUrl: '/test/dist/',
+  title: 'Code Name Nick',
+  baseUrl: '/',
   host: 'localhost',
   port: 3000,
   ENV: ENV,
