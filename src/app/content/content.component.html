@@ -1,7 +1,14 @@
 <h1>Content</h1>
 <!--<user-messages></user-messages>-->
+<h2>Nodes</h2>
 <div class="row results">
-    <div *ngFor="#result of results" class="col-xs-12 col-sm-6 col-md-4">
-        <node [data]="result"></node>
+    <div *ngFor="#node of nodes" class="col-xs-12 col-sm-6 col-md-4">
+        <node [data]="node"></node>
+    </div>
+</div>
+<h2>Terms</h2>
+<div class="row results">
+    <div *ngFor="#term of terms" class="col-xs-12 col-sm-6 col-md-4">
+        <term [data]="term"></term>
     </div>
 </div>

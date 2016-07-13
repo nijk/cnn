@@ -8,41 +8,59 @@ import { Router } from 'angular2/router';
 
 // Services
 import { AuthService } from '../auth/auth.service';
-import { ContentService } from './content.service';
+import { NodeService } from './node.service';
+import { TermService } from './term.service';
 
 // Interfaces
 import { UserItem } from '../user/user.interfaces';
-import { IContent } from './content.interfaces.ts';
+import { IContent, ITermLanguage } from './content.interfaces.ts';
 
 // Enums
-import {  } from './content.enums.ts';
+import { Entity } from './content.enums.ts';
 
 // Components
 //import { Auth } from '../auth/auth.component';
 //import { Messages } from '../messages/messages.component';
 import { Node } from "./node.component";
+import { Term } from "./term.component";
 
 @Component({
     selector: 'auth',
-    providers: [ ContentService ],
-    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, Node/*, Messages*/ ],
+    providers: [ NodeService, TermService ],
+    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, Node, Term/*, Messages*/ ],
     template: require('./content.component.html')
 })
 export class Content implements OnInit {
     constructor(
         private _router: Router,
-        private _contentService: ContentService) {
+        private _nodeService: NodeService,
+        private _termService: TermService) {
     }
 
-    results: IContent[] = [];
+    nodes: IContent[] = [];
+
+    terms: ITermLanguage[] = [];
 
     ngOnInit() {
-      this._contentService.query().subscribe(
+      // Nodes
+      this._nodeService.query().subscribe(
+          data => {
+              console.info('ngOnInit', data);
+
+              //const messageType = (!!data.resultCount) ? 'success' : 'warning';
+              //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
+              this.nodes = data;
+              console.log('Nodes', this.nodes);
+          },
+          e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
+
+        // Terms
+        this._termService.query().subscribe(
           data => {
               //const messageType = (!!data.resultCount) ? 'success' : 'warning';
               //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
-              this.results = data;
-              console.log('Results', this.results);
+              this.terms = data;
+              console.log('Terms', this.terms);
           },
           e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
     }

@@ -2,9 +2,18 @@
  * Created by nijk on 11/03/2016.
  */
 
-import { Content } from './content.enums.ts';
+import { Field } from './content.enums.ts';
 
 export interface IContent {
-    nid?: Array<any>,
-    type?: Array<any>,
+    title: string,
+    type: string,
+    body?: string,
+    img?: string,
+}
+
+export interface ITermLanguage {
+    title: string,
+    body?: string,
+    img?: string,
+    vocabulary?: string
 }

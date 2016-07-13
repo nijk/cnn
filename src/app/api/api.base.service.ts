@@ -12,26 +12,23 @@ export abstract class APIService {
     constructor(public http: Http) {
     }
 
-    private _endpoint: string = 'http://cnn.dev/';
+    private _endpoint: string = 'http://cnn.dev/api/';
 
     /**
      * Send API call to endpoint with Headers & Parameters.
      * @param path
      * @param credentials
-     * @param search
+     * @param searchParams
+     * @param headers
      * @returns {Observable<R>}
      */
-    protected send(path: string, search?: URLSearchParams) {
+    protected send(path: string, searchParams?: URLSearchParams, headers?: Headers) {
         const params: Object = {
-            search: new URLSearchParams()
+            search: searchParams || new URLSearchParams(),
+            headers: headers || new Headers()
         };
 
         params['search'].set('_format', 'json');
-
-        if (!!search) {
-            // Merge optional search query params
-            //params['search'] = search;
-        }
 
         return this.http.get(`${this._endpoint}${path}`, params)
             .map(res => res.json())
