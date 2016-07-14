@@ -13,7 +13,11 @@ export interface IContent {
 
 export interface ITermLanguage {
     title: string,
+    uuid: string,
+    promoted: boolean | string,
     body?: string,
     img?: string,
-    vocabulary?: string
+    vocabulary?: string,
+    parentTitle?: string,
+    slug?: string
 }

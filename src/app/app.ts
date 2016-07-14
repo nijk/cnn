@@ -29,15 +29,14 @@ import { Content } from './content/content.component';
   {
     path: '/content',
     component: Content,
-    name: 'Content'
-  }/*,
-  // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  {
-    path: '/search',
-    loader: () => require('es6-promise!./search/search.component')('Search'),
-    name: 'Search',
+    name: 'Content',
     useAsDefault: true
-  }*/
+  },
+  {
+    path: '/term/:name',
+    component: Content,
+    name: 'Term',
+  }
 ])
 export class App {
   name = 'Code Name Nick';

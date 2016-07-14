@@ -4,7 +4,7 @@
 
 import { Component, OnInit } from 'angular2/core';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Router } from 'angular2/router';
+import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 
 // Services
 import { AuthService } from '../auth/auth.service';
@@ -27,7 +27,7 @@ import { Term } from "./term.component";
 @Component({
     selector: 'auth',
     providers: [ NodeService, TermService ],
-    directives: [ CORE_DIRECTIVES, FORM_DIRECTIVES, Node, Term/*, Messages*/ ],
+    directives: [ CORE_DIRECTIVES,...ROUTER_DIRECTIVES, FORM_DIRECTIVES, Node, Term/*, Messages*/ ],
     template: require('./content.component.html')
 })
 export class Content implements OnInit {
@@ -55,12 +55,12 @@ export class Content implements OnInit {
           e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
 
         // Terms
-        this._termService.query().subscribe(
+        this._termService.query({ promotedOnly: true }).subscribe(
           data => {
               //const messageType = (!!data.resultCount) ? 'success' : 'warning';
               //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
               this.terms = data;
-              console.log('Terms', this.terms);
+              console.info('Terms', this.terms);
           },
           e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
     }

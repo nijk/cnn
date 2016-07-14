@@ -1,4 +1,10 @@
-<h3>{{data.title}}</h3>
-<!--<h4>Vocab: {{data.vocabulary}}</h4>-->
-<p *ngIf="data.body" [innerHTML]="data.body"></p>
-<img *ngIf="data.img" [src]="data.img"/>
+<div class="panel panel-default">
+  <div class="panel-heading text-center">
+    <h3>{{data.title}}</h3>
+  </div>
+  <div class="panel-body">
+    <!--<h4>Vocab: {{data.vocabulary}}</h4>-->
+    <p *ngIf="data.body" [innerHTML]="data.body"></p>
+    <img *ngIf="data.img" [src]="data.img" class="center-block"/>
+  </div>
+</div>

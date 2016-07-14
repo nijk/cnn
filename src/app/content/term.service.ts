@@ -24,18 +24,27 @@ export class TermService extends APIService {
 
   private _data: ITermLanguage[] = [];
 
-  public getData() {
-    return this._data;
+  private setData(data:ITermLanguage[]):void {
+    this._data = data.map((item:any) => {
+      item.slug = item.title.replace(' ', '-').toLowerCase();
+      item.promoted = !!parseInt(item.promoted);
+      return item;
+    });
   }
 
-  public query() {
+  public getData(promotedOnly):ITermLanguage[] {
+    return !!promotedOnly ? this._data.filter(item => !!item.promoted) : this._data;
+  }
+
+  public query(options:{ promotedOnly:boolean }):Observable<ITermLanguage[]> {
+    const { promotedOnly = false } = options;
     const resource = APIResource[1];
 
     return Observable.create(observer => {
       this.send(resource).subscribe(
           json => {
-            this._data = json;
-            observer.next(this.getData());
+            this.setData(json);
+            observer.next(this.getData(promotedOnly));
           },
           e => observer.error(e)
       )
