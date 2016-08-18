@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 // Interfaces
 //import { IResponse } from '../api/api.interfaces';
-import { IContent } from './content.interfaces.ts';
+import { IContent, ITermLanguage } from './content.interfaces.ts';
 
 // Enums
 import { Entity, APIResource } from './content.enums.ts';
@@ -28,11 +28,14 @@ export class NodeService extends APIService {
     return this._data;
   }
 
-  public query() {
-    const resource = APIResource[0];
+  public query(options: { term?: ITermLanguage }): Observable<IContent[]> {
+    const { term } = options;
+    const resource = term ? `${APIResource.contentByTerm}/${term.id}` : `${APIResource.content}/all`;
+
+    console.info('query', term, resource);
 
     return Observable.create(observer => {
-      this.send(resource).subscribe(
+      this.send(<any> resource).subscribe(
           json => {
             this._data = json;
             observer.next(this.getData());

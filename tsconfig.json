@@ -13,6 +13,7 @@
   ],
   "filesGlob": [
     "./src/**/*.ts",
+    "./src/**/*.html",
     "./test/**/*.ts",
     "!./node_modules/**/*.ts",
     "src/custom-typings.d.ts",

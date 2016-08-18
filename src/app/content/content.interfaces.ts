@@ -10,10 +10,15 @@ export interface IContent {
     body?: string,
     img?: string,
 }
+export interface IQueryOptions {
+    promotedOnly: boolean,
+    term?: ITermLanguage
+}
 
 export interface ITermLanguage {
     title: string,
     uuid: string,
+    id: string,
     promoted: boolean | string,
     body?: string,
     img?: string,

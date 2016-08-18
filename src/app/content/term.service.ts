@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 // Interfaces
 //import { IResponse } from '../api/api.interfaces';
-import { ITermLanguage } from './content.interfaces.ts';
+import { IQueryOptions, ITermLanguage } from './content.interfaces.ts';
 
 // Enums
 import { APIResource } from './content.enums.ts';
@@ -24,7 +24,7 @@ export class TermService extends APIService {
 
   private _data: ITermLanguage[] = [];
 
-  private setData(data:ITermLanguage[]):void {
+  private setData(data:ITermLanguage[]): void {
     this._data = data.map((item:any) => {
       item.slug = item.title.replace(' ', '-').toLowerCase();
       item.promoted = !!parseInt(item.promoted);
@@ -32,16 +32,16 @@ export class TermService extends APIService {
     });
   }
 
-  public getData(promotedOnly):ITermLanguage[] {
+  public getData(promotedOnly: boolean): ITermLanguage[] {
     return !!promotedOnly ? this._data.filter(item => !!item.promoted) : this._data;
   }
 
-  public query(options:{ promotedOnly:boolean }):Observable<ITermLanguage[]> {
-    const { promotedOnly = false } = options;
-    const resource = APIResource[1];
+  public query(options: IQueryOptions): Observable<ITermLanguage[]> {
+    const { promotedOnly = false, term } = options;
+    const resource = term ? `${APIResource.termLanguage}/${term.id}` : `${APIResource.termLanguage}/all`;
 
     return Observable.create(observer => {
-      this.send(resource).subscribe(
+      this.send(<any> resource).subscribe(
           json => {
             this.setData(json);
             observer.next(this.getData(promotedOnly));
