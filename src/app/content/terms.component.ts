@@ -43,6 +43,10 @@ export class Terms implements OnInit {
       e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
   }
 
+  onClick(term: ITermLanguage) {
+    this._router.navigate(['/content', term.slug]);
+  }
+
   ngOnInit() {
     console.info('Terms _router', this._router);
     this.fetchTerms();

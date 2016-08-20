@@ -16,7 +16,7 @@ import { provideWebpack } from '@angularclass/webpack-toolkit';
 import { providePrefetchIdleCallbacks } from '@angularclass/request-idle-callback';
 
 
-import { routes, asyncRoutes, prefetchRouteCallbacks } from '../app/app.routes';
+import { routes, asyncRoutes, prefetchRouteCallbacks } from '../app/app.routing';
 import { APP_RESOLVER_PROVIDERS } from '../app/app.resolver';
 /*
 * Application Providers/Directives/Pipes
