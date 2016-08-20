@@ -2,7 +2,7 @@
  * Created by nijk on 10/03/2016.
  */
 
-import { Component, Injectable } from 'angular2/core';
+import { Component, Injectable } from '@angular/core';
 //import { Alert } from 'ng2-bootstrap';
 
 // Services
@@ -12,7 +12,7 @@ import { MessagesService } from "./messages.service.ts";
     selector: 'user-messages',
     /*providers: [ Alert ],
     directives: [ Alert ],*/
-    template: require('./messages.component.html')
+    templateUrl: './messages.component.html',
 })
 export class Messages {
     constructor(public _userMessagesService: MessagesService) {

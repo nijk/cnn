@@ -2,7 +2,7 @@
  * Created by nijk on 10/03/2016.
  */
 
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
 enum messageTypes {
     info,

@@ -2,9 +2,9 @@
  * Created by nijk on 12/03/2016.
  */
 
-import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
-import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { CORE_DIRECTIVES } from '@angular/common';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 // Services
 import { NodeService } from './node.service';
@@ -24,7 +24,7 @@ import { Node } from "./node.component";
   selector: 'nodes',
   providers: [ NodeService ],
   directives: [ CORE_DIRECTIVES, ...ROUTER_DIRECTIVES, Terms, Node/*, Messages*/ ],
-  template: require('./nodes.component.html'),
+  templateUrl: './nodes.component.html',
 })
 export class Nodes implements OnInit {
   constructor(private _router: Router,

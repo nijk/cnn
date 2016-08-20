@@ -2,14 +2,14 @@
  * Created by nijk on 10/03/2016.
  */
 
-import {Http, Response, Headers, URLSearchParams} from 'angular2/http';
-import {Observable} from 'rxjs/Observable';
+import { Http, Response, Headers, URLSearchParams } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 // Interfaces
 import { IResource } from "./api.interfaces";
 
 export abstract class APIService {
-  constructor(public http:Http) {
+  constructor(public http: Http) {
   }
 
   private _endpoint: string = 'http://cnn.dev/api/';
@@ -37,7 +37,7 @@ export abstract class APIService {
       headers: headers || new Headers()
     };
 
-    params['search'].set('_format', 'json');
+    params[ 'search' ].set('_format', 'json');
 
     return this.http.get(`${this._endpoint}${path}`, params)
       .map(res => res.json())
@@ -50,8 +50,8 @@ export abstract class APIService {
    * @returns {ErrorObservable}
    * @private
    */
-  private _handleError(error:Response) {
-    const errorMessage = (error.json() || {message: 'Server error'}).message;
+  private _handleError(error: Response) {
+    const errorMessage = (error.json() || { message: 'Server error' }).message;
 
     console.error(errorMessage, error.json());
     return Observable.throw(new Error(errorMessage));

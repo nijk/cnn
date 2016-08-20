@@ -2,11 +2,11 @@
  * Created by nijk on 12/03/2016.
  */
 
-import { Component, Input } from 'angular2/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'term',
-    template: require('./term.component.html'),
+    templateUrl: './term.component.html',
 })
 export class Term {
     constructor(){

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title><%= webpackConfig.metadata.title %></title>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
   <!-- use http://www.favicon-generator.org/ to replace files in public/icon-->
@@ -29,6 +29,11 @@
   <meta name="theme-color" content="#ffffff">
   <!-- end favicon -->
 
+  <% if (webpackConfig.htmlElements.headTags) { %>
+  <!-- Configured Head Tags  -->
+  <%= webpackConfig.htmlElements.headTags %>
+  <% } %>
+
   <!-- base url -->
   <base href="<%= webpackConfig.metadata.baseUrl %>">
 
@@ -38,5 +43,10 @@
 
 <body>
   <app>Loading app</app>
+
+  <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
+  <!-- Webpack Dev Server reload -->
+  <script src="/webpack-dev-server.js"></script>
+  <% } %>
 </body>
 </html>

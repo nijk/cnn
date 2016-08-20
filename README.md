@@ -8,7 +8,7 @@
 
 ## Run application
 
-`npm run build`
+`npm start`
 
 ### License
 This project is released under the [MIT license](https://github.com/nijk/cnn/blob/master/LICENSE).

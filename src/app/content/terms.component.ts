@@ -2,9 +2,9 @@
  * Created by nijk on 12/03/2016.
  */
 
-import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnInit } from '@angular/core';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 // Services
 import { TermService } from './term.service';
@@ -19,7 +19,7 @@ import { Term } from "./term.component";
   selector: 'terms',
   providers: [ TermService ],
   directives: [ CORE_DIRECTIVES, ...ROUTER_DIRECTIVES, FORM_DIRECTIVES, Term ],
-  template: require('./terms.component.html'),
+  templateUrl: './terms.component.html',
 })
 export class Terms implements OnInit {
   constructor(private _router: Router,
