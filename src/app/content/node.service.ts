@@ -7,11 +7,11 @@ import { Http } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 
 // Interfaces
-//import { IResponse } from '../api/api.interfaces';
+import { IResource } from '../api/api.interfaces';
 import { IContent, ITermLanguage } from './content.interfaces.ts';
 
 // Enums
-import { Entity, APIResource } from './content.enums.ts';
+import { Entity } from './content.enums.ts';
 
 // Services
 import { APIService } from '../api/api.base.service';
@@ -30,7 +30,10 @@ export class NodeService extends APIService {
 
   public query(options: { term?: ITermLanguage }): Observable<IContent[]> {
     const { term } = options;
-    const resource = term ? `${APIResource.contentByTerm}/${term.id}` : `${APIResource.content}/all`;
+    const resource: IResource = {
+      collection: (term) ? this.paths.contentByTerm : this.paths.content,
+      collectionID: (term && term.id) ? term.id : null
+    };
 
     console.info('query', term, resource);
 

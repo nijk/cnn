@@ -1,0 +1,9 @@
+<h2>Terms</h2>
+<div class="row results">
+    <div *ngFor="#term of terms" class="col-xs-12 col-sm-6 col-md-4">
+        <!--<a (click)="fetchNodes(term)">-->
+        <a [routerLink]="['Nodes', {term:term.slug}]">
+            <term [data]="term"></term>
+        </a>
+    </div>
+</div>

@@ -1,16 +1,3 @@
 <h1>Skills</h1>
 <!--<user-messages></user-messages>-->
-<h2>Nodes</h2>
-<div class="row results">
-    <div *ngFor="#node of nodes" class="col-xs-12 col-sm-6 col-md-4">
-        <node [data]="node"></node>
-    </div>
-</div>
-<div class="row results">
-    <div *ngFor="#term of terms" class="col-xs-12 col-sm-6 col-md-4">
-        <!--<a [routerLink]="['Term', {name:term.slug}]" (click)="fetchNodes(term)">-->
-        <a (click)="fetchNodes(term)">
-            <term [data]="term"></term>
-        </a>
-    </div>
-</div>
+<terms></terms>

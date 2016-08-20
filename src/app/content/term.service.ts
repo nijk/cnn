@@ -10,11 +10,9 @@ import { Observable } from 'rxjs/Observable';
 //import { IResponse } from '../api/api.interfaces';
 import { IQueryOptions, ITermLanguage } from './content.interfaces.ts';
 
-// Enums
-import { APIResource } from './content.enums.ts';
-
 // Services
 import { APIService } from '../api/api.base.service';
+import {IResource} from "../api/api.interfaces";
 
 @Injectable()
 export class TermService extends APIService {
@@ -24,9 +22,9 @@ export class TermService extends APIService {
 
   private _data: ITermLanguage[] = [];
 
-  private setData(data:ITermLanguage[]): void {
+  private setData(data: ITermLanguage[]): void {
     this._data = data.map((item:any) => {
-      item.slug = item.title.replace(' ', '-').toLowerCase();
+      //item.slug = item.title.replace(' ', '-').toLowerCase();
       item.promoted = !!parseInt(item.promoted);
       return item;
     });
@@ -38,10 +36,13 @@ export class TermService extends APIService {
 
   public query(options: IQueryOptions): Observable<ITermLanguage[]> {
     const { promotedOnly = false, term } = options;
-    const resource = term ? `${APIResource.termLanguage}/${term.id}` : `${APIResource.termLanguage}/all`;
+    const resource: IResource = {
+      collection: this.paths.termLanguage,
+      collectionID: (term && term.id) ? term.id : null
+    };
 
     return Observable.create(observer => {
-      this.send(<any> resource).subscribe(
+      this.send(resource).subscribe(
           json => {
             this.setData(json);
             observer.next(this.getData(promotedOnly));

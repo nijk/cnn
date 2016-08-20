@@ -14,9 +14,3 @@ export enum Entity {
     'node',
     'term'
 }
-
-export enum APIResource {
-    content = 'content' as any,
-    contentByTerm = 'content/term' as any,
-    termLanguage = 'taxonomy/language' as any
-}
