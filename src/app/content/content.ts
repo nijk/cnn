@@ -12,7 +12,7 @@ import { Terms } from "./terms.component";
 
 @Component({
   selector: 'content',
-  directives: [ Terms ],
+  //directives: [ Terms ],
   templateUrl: './content.component.html',
 })
 export class Content {

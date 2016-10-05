@@ -20,10 +20,13 @@ import { AppState } from './app.service';
 export class App {
   name = 'Code Name Nick';
 
-  constructor(public appState: AppState) {
+  constructor(
+    public appState: AppState) {
+
   }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
   }
+
 }

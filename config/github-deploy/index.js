@@ -32,7 +32,7 @@ function stripTrailing(str, char) {
     str = str.substr(1);
   }
 
-  if(str.substr(-1) === char) {
+  if (str.substr(-1) === char) {
     str = str.substr(0, str.length - 1);
   }
 
@@ -51,7 +51,7 @@ function stripTrailing(str, char) {
  */
 function safeUrl(url) {
   const stripped = stripTrailing(url || '', '/');
-  return stripped ? stripped + '/' : ''
+  return stripped ? stripped + '/' : '';
 }
 
 exports.getWebpackConfigModule = getWebpackConfigModule;

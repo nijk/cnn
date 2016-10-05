@@ -12,7 +12,7 @@ import { IQueryOptions, ITermLanguage } from './content.interfaces.ts';
 
 // Services
 import { APIService } from '../api/api.base.service';
-import {IResource} from "../api/api.interfaces";
+import { IResource } from "../api/api.interfaces";
 
 @Injectable()
 export class TermService extends APIService {

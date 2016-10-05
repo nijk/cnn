@@ -3,8 +3,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { CORE_DIRECTIVES } from '@angular/common';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { Router } from '@angular/router';
 
 // Services
 import { NodeService } from './node.service';
@@ -23,7 +22,7 @@ import { Node } from "./node.component";
 @Component({
   selector: 'nodes',
   providers: [ NodeService ],
-  directives: [ CORE_DIRECTIVES, ...ROUTER_DIRECTIVES, Terms, Node/*, Messages*/ ],
+  //directives: [ Terms, Node/*, Messages*/ ],
   templateUrl: './nodes.component.html',
 })
 export class Nodes implements OnInit {
