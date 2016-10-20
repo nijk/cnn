@@ -21,9 +21,22 @@ import '@angularclass/hmr';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/find';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/throw';
+import 'rxjs/Observer';
+import 'rxjs/Subscription';
+
+// Lodash
+import 'lodash/filter';
+import 'lodash/find';
+import 'lodash/findIndex';
+import 'lodash/findKey';
+import 'lodash/findLast';
+import 'lodash/map';
+import 'lodash/unescape';
 
 if ('production' === ENV) {
   // Production

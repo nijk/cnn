@@ -12,7 +12,7 @@ export interface IContent {
 }
 
 export interface IQueryOptions {
-  promotedOnly: boolean,
+  promotedOnly?: boolean,
   term?: ITermLanguage
 }
 
@@ -21,6 +21,8 @@ export interface ITermLanguage {
   slug: string,
   uuid: string,
   id: string,
+  isActive: boolean,
+  isPrevActive: boolean,
   promoted: boolean | string,
   body?: string,
   img?: string,

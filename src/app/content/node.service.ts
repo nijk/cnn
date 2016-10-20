@@ -4,11 +4,12 @@
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Observer } from 'rxjs/Observer';
 
 // Interfaces
 import { IResource } from '../api/api.interfaces';
-import { IContent, ITermLanguage } from './content.interfaces.ts';
+import { IContent, IQueryOptions } from './content.interfaces.ts';
 
 // Enums
 import { Entity } from './content.enums.ts';
@@ -28,23 +29,24 @@ export class NodeService extends APIService {
     return this._data;
   }
 
-  public query(options: { term?: ITermLanguage }): Observable<IContent[]> {
+  public query(options: IQueryOptions, next?: any): Subscription {
     const { term } = options;
     const resource: IResource = {
       collection: (term) ? this.paths.contentByTerm : this.paths.content,
       collectionID: (term && term.id) ? term.id : null
     };
 
-    console.info('query', term, resource);
+    //console.info('NodeService query', term, resource);
 
-    return Observable.create(observer => {
-      this.send(<any> resource).subscribe(
-          json => {
-            this._data = json;
-            observer.next(this.getData());
-          },
-          e => observer.error(e)
-      )
-    });
+    const observer: Observer<any> = {
+      next: (json) => {
+        this._data = json;
+        next && next(json);
+      },
+      error: e => observer.error(e),
+      complete: () => console.info('observer complete')
+    };
+
+    return this.send(<any> resource, null, null, observer);
   }
 }

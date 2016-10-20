@@ -14,13 +14,18 @@ import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+
+//Pipes
+import EscapeHtmlPipe from './pipes/escape-html.pipe';
+
+// Content
 import contentModule, { Content } from './content/content';
 import { Nodes } from './content/nodes.component';
+import { NodesByTerm } from './content/nodes-by-term.component';
 import { Node } from './content/node.component';
 import { Terms } from './content/terms.component';
 import { Term } from './content/term.component';
 import { NoContent } from './no-content';
-
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -41,8 +46,10 @@ type StoreType = {
   bootstrap: [ App ],
   declarations: [
     App,
+    EscapeHtmlPipe,
     Content,
     Nodes,
+    NodesByTerm,
     Node,
     Terms,
     Term,

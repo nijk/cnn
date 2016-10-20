@@ -4,7 +4,8 @@
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Observer } from 'rxjs/Observer';
 
 // Interfaces
 //import { IResponse } from '../api/api.interfaces';
@@ -24,31 +25,31 @@ export class TermService extends APIService {
 
   private setData(data: ITermLanguage[]): void {
     this._data = data.map((item:any) => {
-      //item.slug = item.title.replace(' ', '-').toLowerCase();
       item.promoted = !!parseInt(item.promoted);
       return item;
     });
   }
 
   public getData(promotedOnly: boolean): ITermLanguage[] {
-    return !!promotedOnly ? this._data.filter(item => !!item.promoted) : this._data;
+    return (promotedOnly ? this._data.filter(item => !!item.promoted) : this._data);
   }
 
-  public query(options: IQueryOptions): Observable<ITermLanguage[]> {
+  public query(options: IQueryOptions, next?: any): Subscription {
     const { promotedOnly = false, term } = options;
     const resource: IResource = {
       collection: this.paths.termLanguage,
       collectionID: (term && term.id) ? term.id : null
     };
 
-    return Observable.create(observer => {
-      this.send(resource).subscribe(
-          json => {
-            this.setData(json);
-            observer.next(this.getData(promotedOnly));
-          },
-          e => observer.error(e)
-      )
-    });
+    const observer: Observer<any> = {
+      next: (json) => {
+        this.setData(json);
+        next && next(this.getData(promotedOnly));
+      },
+      error: (e) => observer.error(e),
+      complete: () => console.info('observer complete')
+    };
+
+    return this.send(resource, null, null, observer);
   }
 }

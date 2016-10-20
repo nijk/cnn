@@ -1,6 +1,9 @@
 <h2>Terms</h2>
 <div class="row results">
     <div *ngFor="let term of terms" class="col-xs-12 col-sm-6 col-md-4">
-        <term [data]="term" (click)="onClick(term)"></term>
+        <term [term]="term"
+              [isActive]="isActiveTerm(term)"
+              (click)="onClick(term)"
+              [ngClass]="{ term: true, 'term--active': term.isActive }"></term>
     </div>
 </div>

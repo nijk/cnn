@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { NodeService } from './node.service';
 
 // Interfaces
-import { IContent, ITermLanguage } from './content.interfaces.ts';
+import { IContent, ITermLanguage, IQueryOptions } from './content.interfaces.ts';
 
 // Enums
 import { Entity } from './content.enums.ts';
@@ -23,32 +23,38 @@ import { Node } from "./node.component";
   selector: 'nodes',
   providers: [ NodeService ],
   //directives: [ Terms, Node/*, Messages*/ ],
-  templateUrl: './nodes.component.html',
+  //templateUrl: './nodes.component.html',
+  template: `
+    <div *ngFor="let node of nodes" class="col-xs-12 col-sm-6 col-md-4">
+      <node [data]="node"></node>
+    </div>`
 })
 export class Nodes implements OnInit {
-  constructor(private _router: Router,
-              private _nodeService: NodeService) {
-
+  constructor(protected _router: Router,
+              protected _nodeService: NodeService) {
   }
 
-  nodes: IContent[] = [];
+  private nodes: IContent[] = [];
 
-  fetchNodes(term?: ITermLanguage) {
-    const options = term ? { term: term } : {};
+  getNodes(): IContent[] {
+    return this.nodes;
+  }
 
-    // Nodes
-    this._nodeService.query(options).subscribe(
-      data => {
-        //const messageType = (!!data.resultCount) ? 'success' : 'warning';
-        //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
-        this.nodes = data;
-        console.log('fetchNodes', this.nodes);
-      },
-      e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
+  fetchNodes(options?: IQueryOptions, next?) {
+    options.term = options.term || null;
+
+    const nextHandler = (data) => {
+      //const messageType = (!!data.resultCount) ? 'success' : 'warning';
+      //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
+      this.nodes = data;
+      console.info('Nodes next()', this.nodes);
+      next && next(this.getNodes());
+    };
+
+    return this._nodeService.query(options, nextHandler);
   }
 
   ngOnInit() {
-    console.info('Nodes _router', this._router);
     this.fetchNodes();
   }
 }

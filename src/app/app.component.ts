@@ -14,7 +14,7 @@ import { AppState } from './app.service';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [ './app.css' ],
+  styleUrls: [ '../assets/css/app.css' ],
   templateUrl: './app.html',
 })
 export class App {

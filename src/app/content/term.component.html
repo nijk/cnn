@@ -1,10 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading text-center">
-    <h3>{{data.title}}</h3>
+    <h3>{{term.title | escapeHtml}}</h3>
   </div>
   <div class="panel-body">
-    <!--<h4>Vocab: {{data.vocabulary}}</h4>-->
-    <p *ngIf="data.body" [innerHTML]="data.body"></p>
-    <img *ngIf="data.img" [src]="data.img" class="center-block"/>
+    <img *ngIf="term.img" [src]="term.img" class="center-block"/>
+    <p *ngIf="isActive && term.body" [innerHTML]="term.body | escapeHtml"></p>
   </div>
 </div>

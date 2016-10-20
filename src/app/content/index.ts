@@ -5,6 +5,7 @@ import { Nodes } from './nodes.component';
 import { Node } from './node.component';
 import { Terms } from './terms.component';
 import { Term } from './term.component';
+import { NodesByTerm } from "./nodes-by-term.component";
 
 export * from './content';
 
@@ -13,6 +14,7 @@ export * from './content';
     // Components / Directives/ Pipes
     Content,
     Nodes,
+    NodesByTerm,
     Terms,
     Node,
     Term

@@ -3,23 +3,31 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-//import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
-import { Router/*, ROUTER_DIRECTIVES*/ } from '@angular/router';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 // Services
 import { TermService } from './term.service';
 
 // Interfaces
-import { ITermLanguage } from './content.interfaces.ts';
-
-// Components
-import { Term } from "./term.component";
+import { ITermLanguage, IQueryOptions } from './content.interfaces.ts';
 
 @Component({
   selector: 'terms',
   providers: [ TermService ],
-  //directives: [ Term ],
-  templateUrl: './terms.component.html',
+  host: {
+    '(document:keydown)': 'handleKeyEvent($event)',
+  },
+  template: `
+    <div *ngFor="let term of terms" class="col-xs-12 col-sm-6 col-md-4">
+      <term [term]="term"
+            [isActive]="term.isActive"
+            (click)="onClick(term)"
+            [ngClass]="{ term: true, 'term--active': term.isActive }"></term>
+      <nodes-by-term *ngIf="shouldBePresent(term)" 
+            [ngClass]="{ nodes: true, 'nodes--active': term.isActive }"
+            [term]="term"></nodes-by-term>
+    </div>`
 })
 export class Terms implements OnInit {
   constructor(private _router: Router,
@@ -27,28 +35,65 @@ export class Terms implements OnInit {
 
   }
 
-  //@Input() data;
-
   terms: ITermLanguage[] = [];
 
-  fetchTerms() {
+  handleKeyEvent(e): void {
+    if (e.key === 'Escape' && !!this.getActiveTerm()) {
+      this.setActiveTerm(null);
+    }
+  }
+
+  shouldBePresent(term): boolean {
+    return term.isActive || term.isPrevActive;
+  }
+
+  getPrevActiveTerms(): ITermLanguage[] {
+    return _.filter(this.terms, 'isPrevActive');
+  };
+
+  getActiveTerm(): ITermLanguage | null {
+    return _.findLast(this.terms, 'isActive');
+  };
+
+  setActiveTerm(nextActiveTerm: ITermLanguage | null): ITermLanguage {
+    const terms = _.map(this.terms, term => {
+      if (term.isActive) {
+        return this.setActiveAttr(term, false, true);
+      }
+
+      if (!!term && !!nextActiveTerm && term.uuid === nextActiveTerm.uuid) {
+        return this.setActiveAttr(term, true, false);
+      }
+      return term;
+    });
+
+    this.terms = terms;
+
+    return this.getActiveTerm();
+  }
+
+  setActiveAttr(term: ITermLanguage, isActive: boolean = false, isPrevActive: boolean = false): ITermLanguage {
+    return Object.assign({}, term, { isActive, isPrevActive });
+  }
+
+  fetchTerms(): void {
+    const next = (data) => {
+      //const messageType = (!!data.resultCount) ? 'success' : 'warning';
+      //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
+      this.terms = data.map((item) => this.setActiveAttr(item, false));
+      console.info('Terms next()', this.terms);
+    };
+
     // Terms
-    this._termService.query({ promotedOnly: true }).subscribe(
-      data => {
-        //const messageType = (!!data.resultCount) ? 'success' : 'warning';
-        //this._messagesService.addMessage(`${data.resultCount} results found`, messageType, false);
-        this.terms = data;
-        console.info('Terms', this.terms);
-      },
-      e => ({}))/*this._messagesService.addMessage(<string> e, 'danger', false)*/;
+    this._termService.query(<IQueryOptions> { promotedOnly: true }, next)
   }
 
-  onClick(term: ITermLanguage) {
-    this._router.navigate(['/content', term.slug]);
+  onClick(term: ITermLanguage): void {
+    const termToSet = term.isActive ? null : term;
+    this.setActiveTerm(termToSet);
   }
 
-  ngOnInit() {
-    console.info('Terms _router', this._router);
+  ngOnInit(): void {
     this.fetchTerms();
   }
 }

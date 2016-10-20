@@ -70,3 +70,11 @@
 .thumbnail .caption :last-child {
     margin-bottom: 0;
 }
+
+.terms .nodes {
+    display: none;
+}
+
+.nodes.nodes--active {
+    display: block;
+}

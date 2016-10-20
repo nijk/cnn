@@ -3,7 +3,8 @@
  */
 
 import { Http, Response, Headers, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 // Interfaces
 import { IResource } from "./api.interfaces";
@@ -22,13 +23,11 @@ export abstract class APIService {
 
   /**
    * Send API call to endpoint with Headers & Parameters.
-   * @param path
-   * @param credentials
    * @param searchParams
    * @param headers
    * @returns {Observable<R>}
    */
-  protected send(resource: IResource, searchParams?: URLSearchParams, headers?: Headers) {
+  protected send(resource: IResource, searchParams?: URLSearchParams, headers?: Headers, observer?: Observer<any>) {
     const collectionID = resource.collectionID || 'all';
     const path = `${resource.collection}/${collectionID}`; // e.g. content/all
 
@@ -39,9 +38,19 @@ export abstract class APIService {
 
     params[ 'search' ].set('_format', 'json');
 
+    if (!observer) {
+      // No-op observer
+      observer = {
+        next: () => {},
+        error: () => {},
+        complete: () => {}
+      };
+    }
+
     return this.http.get(`${this._endpoint}${path}`, params)
       .map(res => res.json())
-      .catch(this._handleError);
+      .catch(this._handleError)
+      .subscribe(observer);
   }
 
   /**
